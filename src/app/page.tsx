@@ -6,7 +6,10 @@ export default function HomePage() {
   return (
     <main>
       <div>
-        <Button onClick={() => alert("just clicked the button")}>
+        <Button
+          onClick={() => alert("just clicked the button")}
+          variant="destructive"
+        >
           click me
         </Button>
       </div>
