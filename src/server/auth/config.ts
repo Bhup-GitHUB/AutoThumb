@@ -5,6 +5,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 import { db } from "~/server/db";
 import { SignInSchema } from "~/schema/auth";
+import bcrypt from "bcryptjs";
+import { ZodError } from "zod";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -48,13 +50,24 @@ export const authConfig = {
 
           const user = await db.user.findUnique({
             where: { email: email },
-            password: 
           });
 
           if (!user) {
             throw new Error("No user found");
           }
+          const isValidPassword = await bcrypt.compare(password, user.password);
+          if (!isValidPassword) {
+            return null;
+          }
+          return user;
         } catch (error) {
+          if (error instanceof ZodError) {
+            console.error("Error during authorization:", error.message);
+            return null;
+          } else {
+            console.error("Unknown error during authorization:", error);
+          }
+
           return null;
         }
         //adding login here
