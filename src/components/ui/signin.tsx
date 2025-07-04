@@ -19,6 +19,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { z } from "zod";
 import { SignInSchema } from "~/schema/auth";
+import { on } from "events";
+import { signIn } from "~/server/auth";
 
 type Values = z.infer<typeof SignInSchema>;
 
@@ -30,6 +32,14 @@ const SignInPPage = () => {
     formState: { errors },
   } = useForm<Values>({ resolver: zodResolver(SignInSchema) });
 
+  const onSubmit = async (data: Values) => {
+    const respopnse = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      callbackUrl: "/dashboard",
+      redirect: false,
+    });
+  };
   return (
     <>
       <div className="flex h-screen items-center justify-center">
@@ -45,18 +55,23 @@ const SignInPPage = () => {
                 Enter Your Email and Password Below
               </CardDescription>
             </CardHeader>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <CardContent>
                 <div className="grid gap-4">
                   <Label htmlFor="Email" className="font-sans">
                     Email
                   </Label>
                   <Input
+                    {...register("email")}
                     id="email"
                     placeholder="xxx@gmail.com"
                     type="email"
                   ></Input>
-                  <Label htmlFor="Password" className="font-sans">
+                  <Label
+                    htmlFor="Password"
+                    className="font-sans"
+                    {...register("password")}
+                  >
                     Password
                   </Label>
                   <Input
