@@ -21,6 +21,7 @@ import { z } from "zod";
 import { SignInSchema } from "~/schema/auth";
 import { on } from "events";
 import { signIn } from "~/server/auth";
+import { toast } from "sonner";
 
 type Values = z.infer<typeof SignInSchema>;
 
@@ -39,6 +40,25 @@ const SignInPPage = () => {
       callbackUrl: "/dashboard",
       redirect: false,
     });
+    if (respopnse.error) {
+      toast.error("Something went wrong, please try again.");
+    }
+
+    // const respopnse = await signIn("credentials", {
+    //   email: data.email,
+    //   password: data.password,
+    //   callbackUrl: "/dashboard",
+    //   redirect: false,
+    // });
+    // if (respopnse.error) {
+    //   toast({
+    //     // @ts-ignore
+    //     title: "Error",
+    //     description: "something went wrong",
+    //     variant: "destructive",
+    //   });
+    // }
+    toast("submitting you data");
   };
   return (
     <>
