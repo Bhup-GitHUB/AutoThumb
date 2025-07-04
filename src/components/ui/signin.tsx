@@ -1,4 +1,5 @@
 "use client";
+import { useForm } from "react-hook-form";
 
 import Link from "next/link";
 import { useState } from "react";
@@ -14,9 +15,20 @@ import {
 import { Label } from "./label";
 import { Input } from "./input";
 import { Button } from "./button";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { z } from "zod";
+import { SignInSchema } from "~/schema/auth";
+
+type Values = z.infer<typeof SignInSchema>;
 
 const SignInPPage = () => {
   const [number, setNumber] = useState(0);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Values>({ resolver: zodResolver(SignInSchema) });
 
   return (
     <>
