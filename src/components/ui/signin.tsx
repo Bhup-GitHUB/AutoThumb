@@ -119,6 +119,13 @@ const SignInPPage = () => {
                     placeholder="*******"
                     type="password"
                   ></Input>
+                  {errors.password && (
+                    <p>
+                      <span className="text-red-500">
+                        {errors.password.message}
+                      </span>
+                    </p>
+                  )}
                 </div>
               </CardContent>
               <CardFooter className="flex flex-col px-4 py-6">
