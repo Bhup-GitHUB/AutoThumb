@@ -63,8 +63,12 @@ const SignInPPage = () => {
                 <p className="flex flex-col px-7 text-gray-500">
                   Do not have account?
                 </p>
+
                 {/* <Button className="flex flex-col">Sign In</Button> */}
               </Link>
+              {/* <p>
+                test account: <span className="text-blue-500"> test </span>
+              </p> */}
             </form>
           </Card>
         </div>
