@@ -20,14 +20,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { SignInSchema } from "~/schema/auth";
 import { on } from "events";
-import { signIn } from "~/server/auth";
+import { signIn } from "next-auth/react";
 import { toast } from "sonner";
-import { useRouter } from "next/router";
-import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/navigation";
+// import { redirect } from "next/dist/server/api-utils";
 
 type Values = z.infer<typeof SignInSchema>;
 
 const SignInPPage = () => {
+  const router = useRouter();
+
   const [number, setNumber] = useState(0);
   // const router = useRouter();
   const {
@@ -43,13 +45,15 @@ const SignInPPage = () => {
       callbackUrl: "/dashboard",
       redirect: false,
     });
+    //@ts-ignore
     if (respopnse.error) {
       toast.error("Something went wrong, please try again.");
+      //@ts-ignore
     } else if (respopnse.ok) {
       toast.success("Successfully signed in!");
       // redirect to dashboard
       // router.push("/dashboard");
-      window.location.href = "/dashboard"; // or use router.push("/dashboard");
+      router.push("/dashboard");
     }
 
     // const respopnse = await signIn("credentials", {
