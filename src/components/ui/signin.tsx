@@ -23,12 +23,13 @@ import { on } from "events";
 import { signIn } from "~/server/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/router";
+import { redirect } from "next/dist/server/api-utils";
 
 type Values = z.infer<typeof SignInSchema>;
 
 const SignInPPage = () => {
   const [number, setNumber] = useState(0);
-  const router = useRouter();
+  // const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -45,8 +46,10 @@ const SignInPPage = () => {
     if (respopnse.error) {
       toast.error("Something went wrong, please try again.");
     } else if (respopnse.ok) {
-      router.push("/dashboard");
-      // Redirect to the dashboard or specified URL
+      toast.success("Successfully signed in!");
+      // redirect to dashboard
+      // router.push("/dashboard");
+      window.location.href = "/dashboard"; // or use router.push("/dashboard");
     }
 
     // const respopnse = await signIn("credentials", {
