@@ -118,9 +118,9 @@ const SignUp = () => {
                   SignIn
                 </Button>
               </CardFooter>
-              <Link href="/signup" className="flex-grid flex">
+              <Link href="/signin" className="flex-grid flex">
                 <p className="flex flex-col px-7 text-gray-500">
-                  Do not have account?
+                  already have an account?
                 </p>
 
                 {/* <Button className="flex flex-col">Sign In</Button> */}
