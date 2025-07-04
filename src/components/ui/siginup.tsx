@@ -115,7 +115,7 @@ const SignUp = () => {
               </CardContent>
               <CardFooter className="flex flex-col px-4 py-6">
                 <Button type="submit" className="w-84">
-                  SignIn
+                  Signup
                 </Button>
               </CardFooter>
               <Link href="/signin" className="flex-grid flex">

@@ -99,6 +99,14 @@ const SignInPPage = () => {
                     placeholder="xxx@gmail.com"
                     type="email"
                   ></Input>
+                  {errors.email && (
+                    <p>
+                      <span className="text-red-500">
+                        {errors.email.message}
+                      </span>
+                    </p>
+                  )}
+
                   <Label
                     htmlFor="Password"
                     className="font-sans"
